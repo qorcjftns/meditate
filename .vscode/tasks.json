@@ -4,16 +4,28 @@
     "type": "shell",
     "echoCommand": true,
     "presentation" : { "reveal": "always" },
+    "options": {
+        "env": {
+            
+        }
+    },
     "tasks": [
           //C++ 컴파일
           {
             "label": "save and compile for C++",
+            "options": {
+                "env": {
+                    "path": "%PATH%;C:\\MinGW\\bin"
+                }
+            },
             "command": "C:\\MinGW\\bin\\g++",
-            "args": [
-                "${file}",
-                "-o",
-                "${fileDirname}\\bin\\${fileBasenameNoExtension}"
-            ],
+            "windows": {
+                "args": [
+                    "${file}",
+                    "-o",
+                    "${workspaceRoot}\\bin\\meditate.exe"
+                ],  
+            },
             "group": "build",
 
             //컴파일시 에러를 편집기에 반영
@@ -43,7 +55,7 @@
             "args": [
                 "${file}",
                 "-o",
-                "${fileDirname}\\bin\\${fileBasenameNoExtension}"
+                "${workspaceRoot}\\bin\\meditate.exe"
             ],
             "group": "build",
 
@@ -79,12 +91,46 @@
         // // 바이너리 실행(Windows)
         {
             "label": "execute",
-            "command": "cmd",
+            "command": "${workspaceRoot}\\bin\\meditate.exe",
             "group": "test",
-            "args": [
-                "/C", "${fileDirname}\\${fileBasenameNoExtension}"
-            ]
-    
+            "args": [],
+            "windows": {
+                "command": "${workspaceRoot}\\bin\\meditate.exe"
+            },
+            "options": {
+                "env": {
+                    "path": "%PATH%;C:\\MinGW\\bin"
+                }
+            },
+        },
+        {
+            "label": "! Make",
+            "options": {
+                "env": {
+                    "path": "%PATH%;C:\\MinGW\\bin"
+                }
+            },
+            "command": "mingw32-make",
+            "args":[
+                "all"
+            ],
+            "group": "build",
+            "problemMatcher": {
+                "fileLocation": [
+                    "relative",
+                    "${workspaceRoot}"
+                ],
+                "pattern": {
+                    // The regular expression. 
+                   //Example to match: helloWorld.c:5:3: warning: implicit declaration of function 'prinft'
+                    "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning error):\\s+(.*)$",
+                    "file": 1,
+                    "line": 2,
+                    "column": 3,
+                    "severity": 4,
+                    "message": 5
+                }
+            }
         }
     ]
 }
