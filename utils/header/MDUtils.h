@@ -1,5 +1,6 @@
 
 
 #define PROPERTY_GS(_SCOPE,_TYPE,_NAME) \
-        #_SCOPE: #_TYPE get_NAME() { return #_NAME; } \
-        #_SCOPE: void set_NAME(#_TYPE #_NAME) {}
+        #_SCOPE: #_TYPE _NAME; \
+        #_SCOPE: #_TYPE get#_NAME() { return #_NAME; } \
+        #_SCOPE: void set#_NAME(#_TYPE #_NAME) { this->#_NAME = #_NAME; }

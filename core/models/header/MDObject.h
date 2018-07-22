@@ -3,10 +3,11 @@
 
 #include <string>
 
-#include "MDObject.h"
+#include "MDUtils.h"
 
 class MDObject {
 
-    PROPERTY_GS(protected,std::string, name);
+public:
+    PROPERTY_GS(protected, std::string, name);
 
 };
